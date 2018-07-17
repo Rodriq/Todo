@@ -19,10 +19,10 @@
 </style>
 </head>
 <body>
-	<div class="container maincontianer">
+	<div class="container maincontianer animated bounce">
 		My Todo
 	</div>
-	<div class="container">
+	<div class="container animated bounce">
 		<div class="row">
 			<div class="col-md-5 mypages">
 				<h2 id="h2Create">Create Todo</h2>
@@ -47,7 +47,7 @@
 				<!-- <button onclick="getUsers();" class="btn btn-info" id="Todo" >Call</button> -->
 			</div>
 		</div>
-		<div class="col-md-7 mypages">
+		<div class="col-md-7 mypages" id="resultHere">
 			<h2>Your Todo's</h2>
 			<hr>
 				<!-- <table class="table table-hover table-bordered" id="todoTable">
@@ -81,13 +81,14 @@
 	<script type="text/javascript">
 		let todos = [];
 		let databaseTodo = [];
+		
 		$(window).on('load',function(){
 			getTodos();
-			// swal(
-			// 	'Are you Sure to Refresh?',
-			// 	'Your todos\' will be lost',
-			// 	'question'
-			// 	)
+			swal(
+				'Are you Sure to Refresh?',
+				'Your todos\' will be lost',
+				'question'
+				)
 			$.get('http://localhost:9000/api/todos/test')
 
 		});
@@ -209,6 +210,13 @@
 					format: 'DD M dd yyyy',
 				});
 			});
+			$("#myTodo").click(
+				function(){
+					console.log('itsss')
+					let ele = $("#resultHere");
+					ele.addClass('animated flipInY')
+
+				});
 			function doneTodo(nn){
 				let position = parseInt(nn.attributes['index'].value);
 				positionInDb = position+1;
@@ -277,6 +285,7 @@
 			let updateButton = document.getElementById("myTodo")
 			updateButton.innerHTML = "Update"
 			updateButton.attributes['onclick'].value = 'afterEdit(this)';
+			// updateButton.className = 'btn btn-primary'
 			updateButton.setAttribute('index', position);
 			updateButton.setAttribute('data-id', $(nn).data('id'));
 			// let todoItem = databaseTodo.find(item => item.id == $(nn).data('id'))
